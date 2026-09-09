@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema Sentinel | Combate ao Crime Organizado</title>
+    <style>
+        /* CSS Básico e Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        :root {
+            --bg-color: #0b1120;
+            --text-light: #f8fafc;
+            --text-muted: #94a3b8;
+            --primary: #2563eb;
+            --primary-hover: #1d4ed8;
+            --card-bg: #1e293b;
+            --accent: #ef4444;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* Navegação */
+        header {
+            background-color: rgba(11, 17, 32, 0.9);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid #334155;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-light);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo span {
+            color: var(--primary);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+            transition: color 0.3s;
+        }
+
+        .btn-demo {
+            background-color: var(--primary);
+            color: white;
+            padding: 0.5rem 1.5rem;
+            border-radius: 4px;
+            font-weight: 600;
+            transition: background 0.3s;
+        }
+
+        .btn-demo:hover {
+            background-color: var(--primary-hover);
+        }
+
+        /* Menu Mobile */
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Hero Section */
+        .hero {
+            margin-top: 80px;
+            padding: 6rem 2rem;
+            text-align: center;
+            background: radial-gradient(circle at center, #1e293b 0%, #0b1120 100%);
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.2;
+        }
+
+        .hero h1 span {
+            color: var(--primary);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .btn-outline {
+            border: 1px solid var(--text-muted);
+            padding: 0.75rem 1.5rem;
+            border-radius: 4px;
+            transition: all 0.3s;
+        }
+
+        .btn-outline:hover {
+            border-color: var(--text-light);
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        /* Seção de Recursos */
+        .features {
+            padding: 5rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-card {
+            background-color: var(--card-bg);
+            padding: 2rem;
+            border-radius: 8px;
+            border: 1px solid #334155;
+            transition: transform 0.3s, border-color 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .feature-card h3 {
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+        }
+
+        .feature-card p {
+            color: var(--text-muted);
+        }
+
+        /* Contato */
+        .contact {
+            background-color: var(--card-bg);
+            padding: 5rem 2rem;
+        }
+
+        .contact-container {
+            max-width: 600px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .contact-form input, .contact-form textarea {
+            width: 100%;
+            padding: 1rem;
+            background-color: var(--bg-color);
+            border: 1px solid #334155;
+            border-radius: 4px;
+            color: white;
+            font-size: 1rem;
+        }
+
+        .contact-form input:focus, .contact-form textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .contact-form button {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 1rem;
+            font-size: 1rem;
+            font-weight: bold;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .contact-form button:hover {
+            background-color: var(--primary-hover);
+        }
+
+        /* Rodapé */
+        footer {
+            text-align: center;
+            padding: 2rem;
+            border-top: 1px solid #334155;
+            color: var(--text-muted);
+        }
+
+        /* Responsividade */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                background-color: var(--card-bg);
+                padding: 1rem 0;
+                text-align: center;
+                border-bottom: 1px solid #334155;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Cabeçalho -->
+    <header>
+        <div class="nav-container">
+            <div class="logo">
+                🛡️ Sentinel<span>OS</span>
+            </div>
+            <button class="mobile-menu-btn" onclick="toggleMenu()">☰</button>
+            <nav class="nav-links" id="navLinks">
+                <a href="#inicio">Início</a>
+                <a href="#solucoes">Soluções</a>
+                <a href="#tecnologia">Tecnologia</a>
+                <a href="#contato" class="btn-demo">Solicitar Demo</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Seção Hero -->
+    <section id="inicio" class="hero">
+        <h1>Inteligência e Tecnologia contra o <span>Crime Organizado</span></h1>
+        <p>Uma plataforma integrada para forças de segurança. Utilize análise preditiva, cruzamento de dados em tempo real e inteligência artificial para desarticular redes criminosas.</p>
+        <div class="hero-buttons">
+            <a href="#contato" class="btn-demo" style="padding: 1rem 2rem; font-size: 1.1rem;">Agendar Apresentação</a>
+            <a href="#solucoes" class="btn-outline" style="padding: 1rem 2rem; font-size: 1.1rem;">Conhecer Recursos</a>
+        </div>
+    </section>
+
+    <!-- Recursos / Soluções -->
+    <section id="solucoes" class="features">
+        <h2 class="section-title">Nossas Capacidades Táticas</h2>
+        <div class="features-grid">
+            
+            <div class="feature-card">
+                <div class="feature-icon">🧠</div>
+                <h3>Inteligência Artificial Preditiva</h3>
+                <p>Nossos algoritmos analisam padrões históricos de criminalidade para prever futuras zonas de risco, otimizando o patrulhamento e a alocação de recursos policiais.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">🔗</div>
+                <h3>Análise de Vínculos (Link Analysis)</h3>
+                <p>Mapeie automaticamente hierarquias e conexões entre suspeitos, empresas de fachada e laranjas, facilitando investigações de lavagem de dinheiro e facções.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">📡</div>
+                <h3>Monitoramento em Tempo Real</h3>
+                <p>Integração com câmeras OCR (Leitura de Placas), reconhecimento facial e sistemas de rádio para criar um centro de comando unificado e ágil.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">🔒</div>
+                <h3>Segurança Nível Militar</h3>
+                <p>Todos os dados transitados na plataforma possuem criptografia ponta a ponta (AES-256), garantindo sigilo absoluto das investigações em curso.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">📱</div>
+                <h3>Aplicativo de Campo Tático</h3>
+                <p>Agentes na rua recebem alertas em tempo real e podem consultar antecedentes, mandados e dossiês instantaneamente através de dispositivos móveis seguros.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">📊</div>
+                <h3>Relatórios Automatizados</h3>
+                <p>Geração de relatórios com validade jurídica em segundos, reduzindo o trabalho burocrático e permitindo que investigadores foquem no trabalho investigativo.</p>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Contato -->
+    <section id="contato" class="contact">
+        <div class="contact-container">
+            <h2 style="font-size: 2rem; margin-bottom: 1rem;">Uso Exclusivo para Forças da Lei</h2>
+            <p style="color: var(--text-muted);">Preencha o formulário institucional para solicitar uma demonstração confidencial da nossa plataforma.</p>
+            
+            <form class="contact-form" onsubmit="enviarFormulario(event)">
+                <input type="text" id="nome" placeholder="Nome Completo do Oficial/Investigador" required>
+                <input type="text" id="instituicao" placeholder="Instituição (Ex: Polícia Federal, Polícia Civil)" required>
+                <input type="email" id="email" placeholder="E-mail Institucional" required>
+                <textarea id="mensagem" rows="4" placeholder="Descreva brevemente o principal desafio da sua unidade hoje..."></textarea>
+                <button type="submit">Solicitar Acesso Restrito</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Rodapé -->
+    <footer>
+        <p>&copy; 2026 SentinelOS Tecnologias de Segurança. Todos os direitos reservados.</p>
+        <p style="font-size: 0.8rem; margin-top: 0.5rem;">Solução restrita a entes governamentais e agências de inteligência autorizadas.</p>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // Função para abrir/fechar o menu em dispositivos móveis
+        function toggleMenu() {
+            const nav = document.getElementById('navLinks');
+            nav.classList.toggle('active');
+        }
+
+        // Função para simular o envio do formulário
+        function enviarFormulario(event) {
+            event.preventDefault(); // Impede o recarregamento da página
+            
+            const nome = document.getElementById('nome').value;
+            const instituicao = document.getElementById('instituicao').value;
+            
+            // Simulação de requisição
+            const btn = event.target.querySelector('button');
+            const textoOriginal = btn.innerText;
+            btn.innerText = "Criptografando e Enviando...";
+            btn.style.backgroundColor = "#10b981"; // Muda cor para verde
+            
+            setTimeout(() => {
+                alert(`Solicitação enviada com sucesso, ${nome}.\nNossa equipe de inteligência entrará em contato com a ${instituicao} em breve.`);
+                event.target.reset(); // Limpa o formulário
+                btn.innerText = textoOriginal;
+                btn.style.backgroundColor = ""; // Retorna a cor original
+            }, 1500);
+        }
+
+        // Fechar menu mobile ao clicar em um link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                const nav = document.getElementById('navLinks');
+                if(nav.classList.contains('active')) {
+                    nav.classList.remove('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
